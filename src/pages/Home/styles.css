@@ -1,0 +1,13 @@
+.buttonContainer{
+  display: flex;
+  align-items: flex-end;
+  min-height: 100px;
+}
+
+.searchContainer{
+  margin-bottom: 30px;
+}
+
+.searchContainer h1{
+  margin-bottom: 30px;
+}
