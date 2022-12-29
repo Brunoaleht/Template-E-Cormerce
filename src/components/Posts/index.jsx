@@ -1,7 +1,9 @@
-import { PostCard } from '../PostCard';
-import './styles.css'
+import P from 'prop-types';
 
-export const Posts = ({ posts }) => (
+import { PostCard } from '../PostCard';
+import './styles.css';
+
+export const Posts = ({ posts = [] }) => (
   <div className="posts">
     {
       //sempre q houver map, precisa de uma key
@@ -18,3 +20,10 @@ export const Posts = ({ posts }) => (
     }
   </div>
 );
+Posts.defaultProps = {
+  posts: [],
+};
+
+Posts.propTypes = {
+  posts: P.array,
+};

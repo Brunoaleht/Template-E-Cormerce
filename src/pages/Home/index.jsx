@@ -1,17 +1,15 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from 'react';
 
-import "./styles.css";
+import './styles.css';
 
-import { loadPost } from "../../util/loadPost";
-import { Posts } from "../../components/Posts";
-import { Container } from "../../components/Container";
-import { Button } from "../../components/Button";
-import { TextInput } from "../../components/TextInput";
+import { loadPost } from '../../util/loadPost';
+import { Posts } from '../../components/Posts';
+import { Container } from '../../components/Container';
+import { Button } from '../../components/Button';
+import { TextInput } from '../../components/TextInput';
 
-
-
-//Isso é modulos dentro das class components
-//  handlePClicado = () => {//arrow function no metodo é evita ter q fazer o bind
+//Isso é módulos dentro das class components
+//  handlePClicado = () => {//arrow function no método é evita ter q fazer o bind
 //   this.setState({ name: "Luis"})
 // }
 
@@ -26,29 +24,27 @@ export const Home = () => {
   const [allPost, setAllPost] = useState([]);
   const [page, setPage] = useState(0);
   const [postsPage] = useState(8);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
 
   const noMorePosts = page + postsPage >= allPost.length;
 
-  const filteredPosts = !!searchValue
+  const filteredPosts = searchValue
     ? allPost.filter((post) => {
         return post.title.toLowerCase().includes(searchValue.toLowerCase());
       })
     : posts;
 
   //O hock useEffect é a função q vai substituir o componentDidMount(),componentDidUpdate() e componentWillUnmount()
-  
-  
 
-  const handleLoadPosts = useCallback (async (page, postsPage) => {
+  const handleLoadPosts = useCallback(async (page, postsPage) => {
     const postsAndPhotos = await loadPost();
 
     setPosts(postsAndPhotos.slice(page, postsPage));
     setAllPost(postsAndPhotos);
-  }, [])
+  }, []);
 
   useEffect(() => {
-    handleLoadPosts(0, postsPage)
+    handleLoadPosts(0, postsPage);
   }, [handleLoadPosts, postsPage]);
 
   const handleLoadMorePosts = () => {
@@ -63,37 +59,23 @@ export const Home = () => {
   const handleChange = (e) => {
     const { value } = e.target;
     setSearchValue(value);
-  }
+  };
 
   return (
     <Container>
       <div className="searchContainer">
-        {!!searchValue && (
-          <h1>Search: {searchValue}</h1>
-        )}
+        {!!searchValue && <h1>Search: {searchValue}</h1>}
         <TextInput inputValue={searchValue} actionFn={handleChange} />
       </div>
 
-      {filteredPosts.length > 0 ? (
-        <Posts posts={filteredPosts} />
-      ) : (
-        <p>Não existe posts</p>
-      )}
+      {filteredPosts.length > 0 ? <Posts posts={filteredPosts} /> : <p>Não existe posts</p>}
 
       <div className="buttonContainer">
-        {!searchValue && (
-          <Button
-            disabled={noMorePosts}
-            text="More Posts"
-            onClick={handleLoadMorePosts}
-          />
-        )}
+        {!searchValue && <Button disabled={noMorePosts} text="More Posts" onClick={handleLoadMorePosts} />}
       </div>
     </Container>
   );
 };
-
-
 
 // export class Home2 extends Component {
 //   //field Class, sem constructor
@@ -140,7 +122,7 @@ export const Home = () => {
 //   //função é chamado quando o componente for desmontado
 //   //=>componentWillUnmount(){}
 
-//   //handle + nome da função é o padrão do react, para se criar metodos
+//   //handle + nome da função é o padrão do react, para se criar métodos
 
 //   render() {
 //     const { posts, page, postsPage, allPost, searchValue } = this.state;
@@ -157,7 +139,7 @@ export const Home = () => {
 //         <div className="searchContainer">
 //           {!!searchValue && (
 //             //Isso aqui é uma avaliação de curto circuito JavaScript
-//             //Na avaliação de curto circuito esse simbolo: !! transforma algo em bolean
+//             //Na avaliação de curto circuito esse simbolo: !! transforma algo em Boolean
 //             //Isso quer dizer se searchValue for true mostre:
 //             <h1>Search: {searchValue}</h1>
 //           )}
@@ -185,7 +167,6 @@ export const Home = () => {
 //     );
 //   }
 // }
-
 
 //Function component inicial do react- com o nome de App
 // function App() {
